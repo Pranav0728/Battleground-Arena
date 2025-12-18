@@ -1,10 +1,13 @@
+public class Main {
+    public static void main(String[] args) {
 
-public class Main{
-    public static void main(String args[]){
-        Player1 ply1 = new Player1("Pranav","M416",100,40);
-        Player2 ply2 = new Player2("Shubham","UMP",100,10);
+        Weapon m416 = new Weapon("M416", 20, 0.8);
+        Weapon ump = new Weapon("UMP", 15, 0.9);
+
+        Player1 ply1 = new Player1("Pranav", m416, 100, 2);
+        Player2 ply2 = new Player2("Shubham", ump, 100, 1);
+
         BattleArena arena = new BattleArena();
-        arena.battleGround(ply1,ply2);
-
+        arena.battleGround(ply1, ply2);
     }
 }

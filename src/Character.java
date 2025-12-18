@@ -1,53 +1,55 @@
-abstract class Character {
-    private String name;
-    private String weapon;
-    private int health;
-    private int attack;
-    Character(String name, String weapon, int health, int attack){
+public abstract class Character {
+
+    protected String name;
+    protected int health;
+    protected Weapon weapon;
+    protected int heals;
+
+    public Character(String name, Weapon weapon, int health, int heals) {
         this.name = name;
         this.weapon = weapon;
         this.health = health;
-        this.attack = attack;
+        this.heals = heals;
     }
-    public boolean isAlive(){
+
+    public boolean isAlive() {
         return health > 0;
     }
-    public void takeDamage(int enemyDamage){
-        if(health > 0){
-            setHealth(health-enemyDamage);
-        }else {
-            System.out.println("Player is dead");
+
+    public void attack(Character enemy) {
+        if (!weapon.hits()) {
+            System.out.println("❌ " + name + " missed the shot!");
+            return;
         }
 
+        int damage = weapon.fire();
+        System.out.println("🔫 " + name + " fires " + weapon.getName()
+                + " dealing " + damage + " damage");
+        enemy.takeDamage(damage);
     }
-    public void setName(String name) {
-        this.name = name;
+
+    public void heal() {
+        if (heals > 0) {
+            health += 25;
+            heals--;
+            System.out.println("🧪 " + name + " healed (+25 HP) | Heals left: " + heals);
+        }
+    }
+
+    public void takeDamage(int damage) {
+        health -= damage;
+        if (health < 0) health = 0;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setWeapon(String weapon) {
-        this.weapon = weapon;
-    }
-
-    public String getWeapon() {
-        return weapon;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
     public int getHealth() {
         return health;
     }
 
-    public int getAttack() {
-        return attack;
-    }
-    public void setAttack(){
-        this.attack = attack;
+    public int getHeals() {
+        return heals;
     }
 }
